@@ -1,3 +1,5 @@
+using API.Models;
+
 namespace API.Data
 {
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -9,5 +11,7 @@ namespace API.Data
         {
 
         }
+
+        public DbSet<Project> Projects { get; set; } = default!;
     }
 }
