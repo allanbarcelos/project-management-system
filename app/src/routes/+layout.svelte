@@ -14,7 +14,7 @@
 
   onMount(() => {
     if (isAuthenticated) {
-      document.body.classList.add("sb-nav-fixed");
+      document.bodyD.classList.add("sb-nav-fixed");
       return () => {
         document.body.classList.remove("sb-nav-fixed");
       };
