@@ -37,48 +37,5 @@ You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
 
-<!-- Deploying the Application -->
-
-## 1. Deploy to Vercel
-
-[Vercel](https://vercel.com/) is a cloud platform for static sites and serverless functions, optimized for frameworks like Svelte. To deploy your Svelte app to Vercel:
-
-### Steps:
-1. If you don't already have a Vercel account, create one at [vercel.com](https://vercel.com/).
-2. Install the Vercel CLI globally:
-
-   ```bash
-   npm install -g vercel
-
-## 2. Deploy to Github Pages
-
-1. Ensure your project is hosted on GitHub. If it's not already, create a new GitHub repository and push your project.
-
-2. Install the gh-pages package:
-
-    ```bash
-    npm install --save-dev gh-pages
-    ```
-
-3. Add a deploy script to your package.json file:
-
- 
-    {
-        "scripts": {
-            "deploy": "gh-pages -d dist"
-        }
-    }
-
-4. 
-```bash
-npm run build
-```
-5. 
-```bash
-npm run deploy
-```
-
-# This will push the dist/ folder to the gh-pages branch of your repository.
-
 
 
