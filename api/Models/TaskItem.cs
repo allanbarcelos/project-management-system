@@ -18,7 +18,6 @@ namespace API.Models
         public string Description { get; set; } = default!;
         public DateTime? DueDate { get; set; }
         public TaskStatus Status {get; set; }
-
         public int ProjectId { get; set; }
         public Project Project { get; set; } = default!;
 
