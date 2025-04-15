@@ -10,9 +10,10 @@ Modification: Added logout functionality with proper authentication handling
   import Fa from "svelte-fa";
 
   // Added by Gurleen: Handler for logout functionality
-  const handleLogout = () => {
+  const handleLogout = async () => {
     clearAuthState(); // Clear authentication state (tokens, user data)
-    goto("/login"); // Redirect to login page
+    document.body.classList.remove("sb-nav-fixed"); // Remove fixed navigation class
+    await goto("/auth/login", { replaceState: true }); // Replace current route with login
   };
 </script>
 
