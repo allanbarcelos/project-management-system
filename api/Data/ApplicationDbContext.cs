@@ -12,6 +12,9 @@ namespace API.Data
 
         }
 
+
+        public DbSet<Comment> Comments { get; set; } = default!;
+
         public DbSet<Project> Projects { get; set; } = default!;
         public DbSet<TaskItem> Tasks { get; set; } = default!;
     }
