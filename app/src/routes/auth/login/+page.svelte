@@ -6,34 +6,47 @@
     let password = '';
     let errorMessage = '';
 
-    const handleLogin = async () =>{
+    const handleLogin = async () => {
         errorMessage = '';
 
+        // Simple validation
+        if (!email || !password) {
+            errorMessage = 'Both email and password are required.';
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            errorMessage = 'Please enter a valid email address.';
+            return;
+        }
+
         try {
-            const respose = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({email, password})
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
             });
 
-            if(respose.ok){
-                const data = await respose.json();
-                const token = data.token;
+            if (response.ok) {
+            const data = await response.json();
+            const token = data.token;
 
-                setAuthState({isAuthenticated: true, user : { email }, token});
+            setAuthState({ isAuthenticated: true, user: { email }, token });
 
-                goto('/');
-            } else { // this will happen in a good environment (that message will be dispatched by our API)
-                const errorData = await respose.json();
-                errorMessage = errorData.message || 'Login failed, Please try again';
+            goto('/');
+            } else {
+            const errorData = await response.json();
+            errorMessage = errorData.message || 'Login failed, please try again.';
             }
-        } catch (error) { // this happen becasue something wronh with API or Network connection
-            errorMessage = 'An error occured. Please try again later.';
-            console.error('Login error: ', error);
+        } catch (error) {
+            errorMessage = 'An error occurred. Please try again later.';
+            console.error('Login error:', error);
         }
     }
+
 </script>
 
 <div class="col-lg-5">
