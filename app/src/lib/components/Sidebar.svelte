@@ -60,6 +60,47 @@
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 Tables
             </a>
+            <div class="sb-sidenav-menu-heading">Projects and Tasks</div>
+            <a class="nav-link" href="project-listing.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-project-listing"></i></div>
+                Project Listing
+            </a>
+            <a class="nav-link" href="project-details.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-project-details"></i></div>
+                Project Details
+            </a>
+            <a class="nav-link" href="project-create.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-project-create"></i></div>
+                Create Project 
+            </a>
+            <a class="nav-link" href="project-edit.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-project-edit"></i></div>
+                Edit Project 
+            </a>
+            <a class="nav-link" href="task-listing.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-task-listing"></i></div>
+                Task Listing
+            </a>
+            <a class="nav-link" href="task-details.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-task-details"></i></div>
+                Task Details
+            </a>
+            <a class="nav-link" href="task-create.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-task-create"></i></div>
+                Create Task 
+            </a>
+            <a class="nav-link" href="task-edit.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-task-edit"></i></div>
+                Edit Task 
+            </a>
+            <a class="nav-link" href="comment-component.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-comment-component"></i></div>
+                Comment Component 
+            </a>
+            <a class="nav-link" href="task-status.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-task-status"></i></div>
+                Task Status Update 
+            </a>
         </div>
     </div>
     <div class="sb-sidenav-footer">
