@@ -22,9 +22,19 @@ builder.Services.AddCors(options =>
 });
 //
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection"); // string
+if (builder.Environment.IsDevelopment())
+{
+    var sqliteConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlite(sqliteConnection));
+}
+else
+{
+    var postgresConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseNpgsql(postgresConnection));
+}
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
