@@ -1,8 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { authStore, setAuthState } from "$lib/stores/authStore";
-  import { faL } from "@fortawesome/free-solid-svg-icons";
-  import { onMount } from "svelte";
   import toast from "svelte-french-toast";
 
   let firstName = "";
@@ -15,45 +13,66 @@
   let isLoading = false;
 
   const handleRegister = async () => {
-    errorMessage = "";
+    errorMessage = '';
     isLoading = true;
 
-    if (password != passwordConfirm) {
-      errorMessage = "Passwords do not match";
+    // Basic frontend validation
+    if (!firstName || !lastName || !email || !password || !passwordConfirm) {
+      errorMessage = 'All fields are required.';
+      toast.error(errorMessage, { duration: 4000 });
+      isLoading = false;
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      errorMessage = 'Please enter a valid email address.';
+      toast.error(errorMessage, { duration: 4000 });
+      isLoading = false;
+      return;
+    }
+
+    if (password.length < 6) {
+      errorMessage = 'Password must be at least 6 characters long.';
+      toast.error(errorMessage, { duration: 4000 });
+      isLoading = false;
+      return;
+    }
+
+    if (password !== passwordConfirm) {
+      errorMessage = 'Passwords do not match.';
+      toast.error(errorMessage, { duration: 4000 });
       isLoading = false;
       return;
     }
 
     try {
-      const respose = await fetch(
-        `${import.meta.env.VITE_API_URL}/auth/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ firstName, lastName, email, password }),
-        }
-      );
+      const response = await fetch('http://localhost:5086/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ firstName, lastName, email, password })
+    });
 
-      if (respose.ok) {
-        toast.success("It works!", { duration: 3000 });
-        setTimeout(() => goto("/auth/login"), 3000);
+      if (response.ok) {
+        toast.success('Registration successful!', { duration: 3000 });
+        setTimeout(() => goto('/auth/login'), 3000);
       } else {
-        // this will happen in a good environment (that message will be dispatched by our API)
-        const errorData: [] = await respose.json();
-        errorData.forEach((e: { code: string; description: string }) => {
-          toast.error(e.description, { duration: 5000, position: "top-right" });
-        });
+        const errorData = await response.json();
+        if (Array.isArray(errorData)) {
+          errorData.forEach((e: { code: string; description: string }) => {
+            toast.error(e.description, { duration: 5000, position: 'top-right' });
+          });
+        } else {
+          toast.error('Unexpected error occurred. Please try again later.', { duration: 5000 });
+        }
       }
-    } catch (error) {
-      // this happen becasue something wronh with API or Network connection
-      errorMessage = "An error occured. Please try again later.";
-      console.error("Login error: ", error);
-      toast.error(
-        error?.message || "An error occured. Please try again later.",
-        { duration: 5000 }
-      );
+    } catch (error: unknown) {
+      const err = error as Error;
+      errorMessage = 'An error occurred. Please try again later.';
+      console.error('Register error:', err);
+      toast.error(err.message || errorMessage, { duration: 5000 });
     } finally {
       isLoading = false;
     }
