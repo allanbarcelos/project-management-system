@@ -1,4 +1,5 @@
 using API.Models;
+using api.Models;
 
 namespace API.Data
 {
@@ -14,5 +15,6 @@ namespace API.Data
 
         public DbSet<Project> Projects { get; set; } = default!;
         public DbSet<TaskItem> Tasks { get; set; } = default!;
+        public DbSet<Comment> Comments { get; set; } = default!;
     }
 }
