@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^6.0.0",
+    "@tsconfig/svelte": "^5.0.4",
+    "vite": "^6.3.2"
+  }
+}
