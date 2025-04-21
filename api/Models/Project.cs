@@ -19,5 +19,9 @@ namespace API.Models
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public ProjectStatus Status { get; set; }
+
+        // Navigation properties
+        public ICollection<TaskItem> Tasks { get; set; } = new List<TaskItem>();
+        public ICollection<User> Users { get; set; } = new List<User>();
     }
 }
