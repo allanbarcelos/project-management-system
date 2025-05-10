@@ -1,10 +1,22 @@
+<!-- 
+Author: Original template author
+Modified by: Gurleen
+Modification: Added logout functionality with proper authentication handling
+-->
 <script>
   import { faBars, faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
-
-
+  import { clearAuthState } from "$lib/stores/authStore";
+  import { goto } from "$app/navigation";
   import Fa from "svelte-fa";
 
+  // Added by Gurleen: Handler for logout functionality
+  const handleLogout = async () => {
+    clearAuthState(); // Clear authentication state (tokens, user data)
+    document.body.classList.remove("sb-nav-fixed"); // Remove fixed navigation class
+    await goto("/auth/login", { replaceState: true }); // Replace current route with login
+  };
 </script>
+
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
     <a class="navbar-brand ps-3" href="index.html">Project Management</a>
@@ -21,7 +33,7 @@
             </button>
         </div>
     </form>
-    <!-- Navbar-->
+    <!-- Added by Gurleen: User dropdown with logout functionality -->
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">
             <a aria-label="user" class="nav-link dropdown-toggle" id="navbarDropdown" href="!#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -31,7 +43,8 @@
                 <li><a class="dropdown-item" href="#!">Settings</a></li>
                 <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                 <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#!">Logout</a></li>
+                <!-- Added by Gurleen: Logout button with click handler -->
+                <li><button class="dropdown-item" on:click={handleLogout}>Logout</button></li>
             </ul>
         </li>
     </ul>

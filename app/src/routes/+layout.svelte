@@ -1,19 +1,18 @@
 <script>
   import MainLayout from "$lib/layouts/MainLayout.svelte";
-
-  import { get } from "svelte/store";
   import { authStore } from "$lib/stores/authStore";
-
   import "./../scss/styles.scss";
   import "./../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
   import { onMount } from "svelte";
-
   import { Toaster } from 'svelte-french-toast';
+  import { page } from '$app/stores';
 
-  const isAuthenticated = get(authStore).isAuthenticated;
+  // Make auth state reactive
+  $: isAuthenticated = $authStore.isAuthenticated;
+  $: isAuthPage = $page.url.pathname.startsWith('/auth/');
 
   onMount(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && !isAuthPage) {
       document.body.classList.add("sb-nav-fixed");
       return () => {
         document.body.classList.remove("sb-nav-fixed");
@@ -25,7 +24,7 @@
 
 <Toaster />
 
-{#if isAuthenticated}
+{#if isAuthenticated && !isAuthPage}
   <MainLayout>
     <slot />
   </MainLayout>
